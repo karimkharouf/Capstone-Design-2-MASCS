@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+bool mySumHelper(vector<int> &nums, int index, int currentSum, double target)
+{
+    if (currentSum == target)
+        return true;
+    if (index == nums.size())
+        return false;
+    return mySumHelper(nums, index + 1, currentSum + nums[index], target) ||
+           mySumHelper(nums, index + 1, currentSum, target);
+
+    return false;
+}
+bool mySum(vector<int> &nums)
+{
+    int sum = 0;
+    for (int i = 0; i < nums.size(); i++)
+    {
+        sum += nums[i];
+    }
+    if (sum % 2 != 0)
+        return false;
+    return mySumHelper(nums, 0, 0, sum / 2);
+}
+int main()
+{
+    vector<int> num1 = {1, 5, 5, 11};
+    cout << mySum(num1) << endl;
+
+    vector<int> num2 = {1, 1, 1, 1};
+    cout << mySum(num2) << endl;
+
+    vector<int> num3 = {1, 2, 3, 5};
+    cout << mySum(num3) << endl;
+}
